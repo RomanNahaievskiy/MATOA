@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230108213643">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230112235040">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,6 +121,7 @@
 					</div>
 				</div>
 			</section>
+
 			<div data-watch data-watch-treshold="0.3" class="page__main-discover-now discover-now">
 				<div class="discover-now__container">
 					<article class="discover-now__item item-discover-now">
@@ -144,7 +145,7 @@
 					</article>
 				</div>
 			</div>
-			<section class="page__monthly-deals monthly-deals">
+			<section data-watch data-watch-treshold="0.3" class="page__monthly-deals monthly-deals">
 				<div class="monthly-deals__container">
 					<h2 class="monthly-deals__title title">Monthly Deals</h2>
 					<div class="monthly-deals__body">
@@ -226,26 +227,59 @@
 
 				</div>
 			</section>
-			<!-- Some Products -->
+			<!-- collections -->
+			<section class="page__collections collections">
+				<div class="collections__container">
+					<div class="collections__body">
+						<div class="collections__column">
+							<h3 class="collections__title title title_small">Maple Series</h3>
+							<div id="cat-01" class="collections__items">
+							</div>
+						</div>
+						<div class="collections__column">
+							<h3 class="collections__title title title_small">Ebony Series</h3>
+							<div id="cat-02" class="collections__items">
+							</div>
+						</div>
+						<div class="collections__column">
+							<h3 class="collections__title title title_small">Featured</h3>
+							<div id="cat-03" class="collections__items">
+							</div>
+						</div>
+
+					</div>
+					<div class="collections__footer">
+						<button class="collections__button border-button" type="button"><span>See More</span></button>
+
+					</div>
+
+
+				</div>
+			</section>
 			<!-- Testimonials -->
 			<section class="page__insta insta">
 				<div class="insta__container">
 					<h2 class="insta__title title">Instagram</h2>
 					<div data-gallery class="insta__items">
-						<a href="img/main/insta/01.jpg" class="insta__item">
-							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/01.webp" type="image/webp"><img src="img/main/insta/01.jpg" alt="Image"></picture></div>
+						<a href="img/main/insta/insta-full-size/01.jpg" class="insta__item">
+							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/insta-preview/01.webp" type="image/webp"><img src="img/main/insta/insta-preview/01.jpg" alt="Image"></picture>
+							</div>
 						</a>
-						<a href="img/main/insta/02.jpg" class="insta__item">
-							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/02.webp" type="image/webp"><img src="img/main/insta/02.jpg" alt="Image"></picture></div>
+						<a href="img/main/insta/insta-full-size/02.jpg" class="insta__item">
+							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/insta-preview/02.webp" type="image/webp"><img src="img/main/insta/insta-preview/02.jpg" alt="Image"></picture>
+							</div>
 						</a>
-						<a href="img/main/insta/03.jpg" class="insta__item">
-							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/03.webp" type="image/webp"><img src="img/main/insta/03.jpg" alt="Image"></picture></div>
+						<a href="img/main/insta/insta-full-size/03.jpg" class="insta__item">
+							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/insta-preview/03.webp" type="image/webp"><img src="img/main/insta/insta-preview/03.jpg" alt="Image"></picture>
+							</div>
 						</a>
-						<a href="img/main/insta/04.jpg" class="insta__item">
-							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/04.webp" type="image/webp"><img src="img/main/insta/04.jpg" alt="Image"></picture></div>
+						<a href="img/main/insta/insta-full-size/04.jpg" class="insta__item">
+							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/insta-preview/04.webp" type="image/webp"><img src="img/main/insta/insta-preview/04.jpg" alt="Image"></picture>
+							</div>
 						</a>
-						<a href="img/main/insta/05.jpg" class="insta__item">
-							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/05.webp" type="image/webp"><img src="img/main/insta/05.jpg" alt="Image"></picture></div>
+						<a href="img/main/insta/insta-full-size/05.jpg" class="insta__item">
+							<div class="insta__image-ibg"><picture><source srcset="img/main/insta/insta-preview/05.webp" type="image/webp"><img src="img/main/insta/insta-preview/05.jpg" alt="Image"></picture>
+							</div>
 						</a>
 					</div>
 				</div>
@@ -362,7 +396,7 @@
 		</div>
 	</div>
 	</div>
-	<script src="js/app.min.js?_v=20230108213643"></script>
+	<script src="js/app.min.js?_v=20230112235040"></script>
 </body>
 
 </html>

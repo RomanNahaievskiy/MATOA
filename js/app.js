@@ -5783,6 +5783,40 @@ PERFORMANCE OF THIS SOFTWARE.
     }
     const da = new DynamicAdapt("max");
     da.init();
+    window.addEventListener("load", windowLoad);
+    let collectionsElement, categoriesElements;
+    function windowLoad() {
+        collectionsElement = document.querySelector(".collections");
+        categoriesElements = document.querySelectorAll(".collections__column");
+        if (collectionsElement) loadProducts();
+    }
+    async function loadProducts() {
+        const productsJson = "files/json/collections.json";
+        const response = await fetch(productsJson, {
+            method: "GET"
+        });
+        if (response.ok) {
+            const results = await response.json();
+            setProducts(results);
+        }
+    }
+    function setProducts(products) {
+        const productsArray = products.collections;
+        let productTemplate;
+        productsArray.forEach((product => {
+            productTemplate = `\n            <article id="pid-${product.id}" class="collections__item item-collections">\n                <a href="${product.url}" class="item-collections__image"><img src="${product.image}"\n                        alt="Image">\n                </a>\n                <div class="item-collections__body">\n                    <div class="item-collections__title">\n                        %OLDPRICE%\n                        <a href="${product.url}" class="item-collections__link-title">${product.title}</a>\n                    </div>\n                    <div class="item-collections__new-price">Rp ${product.price.newvalue}</div>\n                </div>\n            </article>\n        `;
+            if (product.price.value) {
+                const oldPrice = `\n                        <div class="item-collections__price">Rp ${product.price.value}</div>\n            `;
+                productTemplate = productTemplate.replace("%OLDPRICE%", oldPrice);
+            } else productTemplate = productTemplate.replace("%OLDPRICE%", "");
+            const category = product.category;
+            let collectionsItems;
+            if (1 === category) collectionsItems = document.querySelector("#cat-01");
+            if (2 === category) collectionsItems = document.querySelector("#cat-02");
+            if (3 === category) collectionsItems = document.querySelector("#cat-03");
+            collectionsItems.insertAdjacentHTML("beforeend", productTemplate);
+        }));
+    }
     window["FLS"] = true;
     isWebp();
     addTouchClass();
