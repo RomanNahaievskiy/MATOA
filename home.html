@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230112235040">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230205175612">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +52,7 @@
 									<picture><source srcset="img/main/swiper/image/image.webp" type="image/webp"><img src="img/main/swiper/image/image.png" alt="image"></picture>
 								</div>
 								<div class="slide-main-slider__body slide-main-slider__body_1">
-									<h2 class="slide-main-slider__title"> WAY KAMBAS
+									<h2 class="slide-main-slider__title big-title"> WAY KAMBAS
 										MINI EBONY</h2>
 									<p class="slide-main-slider__text">MATOA Way Kambas - This wood is chosen to
 										represent the Sumatran Rhino's skin which is designed with an overlap effect
@@ -122,7 +122,7 @@
 				</div>
 			</section>
 
-			<div data-watch data-watch-treshold="0.3" class="page__main-discover-now discover-now">
+			<div data-watch data-watch-treshold="0.3" data-watch-once class="page__main-discover-now discover-now">
 				<div class="discover-now__container">
 					<article class="discover-now__item item-discover-now">
 						<h3 class="item-discover-now__title ">Luxurious <span>Eyewear</span></h3>
@@ -145,7 +145,7 @@
 					</article>
 				</div>
 			</div>
-			<section data-watch data-watch-treshold="0.3" class="page__monthly-deals monthly-deals">
+			<section data-watch data-watch-treshold="0.3" data-watch-once class="page__monthly-deals monthly-deals">
 				<div class="monthly-deals__container">
 					<h2 class="monthly-deals__title title">Monthly Deals</h2>
 					<div class="monthly-deals__body">
@@ -153,8 +153,8 @@
 							<a href="" class="item-monthly-deals__image"><picture><source srcset="img/main/montly-deals/01.webp" type="image/webp"><img src="img/main/montly-deals/01.jpg" alt="Singo Maple"></picture></a>
 							<h3 class="item-monthly-deals__label">Singo Maple</h3>
 							<p class="item-monthly-deals__discount">20% Off</p>
-							<p class="item-monthly-deals__price"><span>Rp 1.500.000</span></p>
-							<p class="item-monthly-deals__new-price">Rp 1.264.000</p>
+							<p class="item-monthly-deals__price old-price"><span>Rp 1.500.000</span></p>
+							<p class="item-monthly-deals__new-price price">Rp 1.264.000</p>
 							<div class="item-monthly-deals__hidden">
 								<div class="item-monthly-deals__actions">
 									<button type="button" class="item-monthly-deals__like _icon-favorite"></button>
@@ -257,6 +257,41 @@
 				</div>
 			</section>
 			<!-- Testimonials -->
+			<section class="page__testimonals testimonials">
+				<div class="testimonials__container">
+					<h2 class="testimonials__title title title_semibold">Testimonials</h2>
+					<!-- Оболонка слайдера -->
+					<div class="testimonials__slider swiper">
+						<!-- Частина слайдера, що рухається -->
+						<div class="testimonials__wrapper swiper-wrapper">
+
+							<!-- Слайд -->
+							<div class="testimonials__slide slide-testimonials  swiper-slide">
+								<div class="slide-testimonials__image"><img src="img/main/testimonials/01.jpg " alt="Image"></div>
+								<div class="slide-testimonials__content">
+									<h4 class="slide-testimonials__name">Gita Savitri</h4>
+									<p class="slide-testimonials__info">Content Creator/Influencer</p>
+								</div>
+							</div>
+							<!-- Слайд -->
+							<div class="testimonials__slide slide-testimonials  swiper-slide">
+								<div class="slide-testimonials__image"><img src="img/main/testimonials/01.jpg " alt="Image"></div>
+								<div class="slide-testimonials__content">
+									<h4 class="slide-testimonials__name">Lola Bels</h4>
+									<p class="slide-testimonials__info">Content Creator/Influencer</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Якщо потрібна навігація (ліворуч/праворуч) -->
+						<div class="testimonials__arrows">
+							<button type="button" class="testimonials__arrow testimonials__arrow_left testimonials__swiper-button-prev _icon-arrow-slider-long"></button>
+							<button type="button" class="testimonials__arrow testimonials__arrow_right testimonials__swiper-button-next _icon-arrow-slider-long"></button>
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<section class="page__insta insta">
 				<div class="insta__container">
 					<h2 class="insta__title title">Instagram</h2>
@@ -396,7 +431,7 @@
 		</div>
 	</div>
 	</div>
-	<script src="js/app.min.js?_v=20230112235040"></script>
+	<script src="js/app.min.js?_v=20230205175612"></script>
 </body>
 
 </html>
