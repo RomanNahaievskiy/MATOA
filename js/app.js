@@ -757,12 +757,31 @@
             FLS(`[Форми]: ${message}`);
         }
     }
-    function ssr_window_esm_isObject(obj) {
+    function formQuantity() {
+        document.addEventListener("click", (function(e) {
+            let targetElement = e.target;
+            if (targetElement.closest("[data-quantity-plus]") || targetElement.closest("[data-quantity-minus]")) {
+                const valueElement = targetElement.closest("[data-quantity]").querySelector("[data-quantity-value]");
+                let value = parseInt(valueElement.value);
+                if (targetElement.hasAttribute("data-quantity-plus")) {
+                    value++;
+                    if (+valueElement.dataset.quantityMax && +valueElement.dataset.quantityMax < value) value = valueElement.dataset.quantityMax;
+                } else {
+                    --value;
+                    if (+valueElement.dataset.quantityMin) {
+                        if (+valueElement.dataset.quantityMin > value) value = valueElement.dataset.quantityMin;
+                    } else if (value < 1) value = 1;
+                }
+                targetElement.closest("[data-quantity]").querySelector("[data-quantity-value]").value = value;
+            }
+        }));
+    }
+    function isObject(obj) {
         return null !== obj && "object" === typeof obj && "constructor" in obj && obj.constructor === Object;
     }
     function extend(target = {}, src = {}) {
         Object.keys(src).forEach((key => {
-            if ("undefined" === typeof target[key]) target[key] = src[key]; else if (ssr_window_esm_isObject(src[key]) && ssr_window_esm_isObject(target[key]) && Object.keys(src[key]).length > 0) extend(target[key], src[key]);
+            if ("undefined" === typeof target[key]) target[key] = src[key]; else if (isObject(src[key]) && isObject(target[key]) && Object.keys(src[key]).length > 0) extend(target[key], src[key]);
         }));
     }
     const ssrDocument = {
@@ -3852,6 +3871,254 @@
             destroy
         });
     }
+    function Controller({swiper, extendParams, on}) {
+        extendParams({
+            controller: {
+                control: void 0,
+                inverse: false,
+                by: "slide"
+            }
+        });
+        swiper.controller = {
+            control: void 0
+        };
+        function LinearSpline(x, y) {
+            const binarySearch = function search() {
+                let maxIndex;
+                let minIndex;
+                let guess;
+                return (array, val) => {
+                    minIndex = -1;
+                    maxIndex = array.length;
+                    while (maxIndex - minIndex > 1) {
+                        guess = maxIndex + minIndex >> 1;
+                        if (array[guess] <= val) minIndex = guess; else maxIndex = guess;
+                    }
+                    return maxIndex;
+                };
+            }();
+            this.x = x;
+            this.y = y;
+            this.lastIndex = x.length - 1;
+            let i1;
+            let i3;
+            this.interpolate = function interpolate(x2) {
+                if (!x2) return 0;
+                i3 = binarySearch(this.x, x2);
+                i1 = i3 - 1;
+                return (x2 - this.x[i1]) * (this.y[i3] - this.y[i1]) / (this.x[i3] - this.x[i1]) + this.y[i1];
+            };
+            return this;
+        }
+        function getInterpolateFunction(c) {
+            if (!swiper.controller.spline) swiper.controller.spline = swiper.params.loop ? new LinearSpline(swiper.slidesGrid, c.slidesGrid) : new LinearSpline(swiper.snapGrid, c.snapGrid);
+        }
+        function setTranslate(_t, byController) {
+            const controlled = swiper.controller.control;
+            let multiplier;
+            let controlledTranslate;
+            const Swiper = swiper.constructor;
+            function setControlledTranslate(c) {
+                const translate = swiper.rtlTranslate ? -swiper.translate : swiper.translate;
+                if ("slide" === swiper.params.controller.by) {
+                    getInterpolateFunction(c);
+                    controlledTranslate = -swiper.controller.spline.interpolate(-translate);
+                }
+                if (!controlledTranslate || "container" === swiper.params.controller.by) {
+                    multiplier = (c.maxTranslate() - c.minTranslate()) / (swiper.maxTranslate() - swiper.minTranslate());
+                    controlledTranslate = (translate - swiper.minTranslate()) * multiplier + c.minTranslate();
+                }
+                if (swiper.params.controller.inverse) controlledTranslate = c.maxTranslate() - controlledTranslate;
+                c.updateProgress(controlledTranslate);
+                c.setTranslate(controlledTranslate, swiper);
+                c.updateActiveIndex();
+                c.updateSlidesClasses();
+            }
+            if (Array.isArray(controlled)) {
+                for (let i = 0; i < controlled.length; i += 1) if (controlled[i] !== byController && controlled[i] instanceof Swiper) setControlledTranslate(controlled[i]);
+            } else if (controlled instanceof Swiper && byController !== controlled) setControlledTranslate(controlled);
+        }
+        function setTransition(duration, byController) {
+            const Swiper = swiper.constructor;
+            const controlled = swiper.controller.control;
+            let i;
+            function setControlledTransition(c) {
+                c.setTransition(duration, swiper);
+                if (0 !== duration) {
+                    c.transitionStart();
+                    if (c.params.autoHeight) utils_nextTick((() => {
+                        c.updateAutoHeight();
+                    }));
+                    c.$wrapperEl.transitionEnd((() => {
+                        if (!controlled) return;
+                        if (c.params.loop && "slide" === swiper.params.controller.by) c.loopFix();
+                        c.transitionEnd();
+                    }));
+                }
+            }
+            if (Array.isArray(controlled)) {
+                for (i = 0; i < controlled.length; i += 1) if (controlled[i] !== byController && controlled[i] instanceof Swiper) setControlledTransition(controlled[i]);
+            } else if (controlled instanceof Swiper && byController !== controlled) setControlledTransition(controlled);
+        }
+        function removeSpline() {
+            if (!swiper.controller.control) return;
+            if (swiper.controller.spline) {
+                swiper.controller.spline = void 0;
+                delete swiper.controller.spline;
+            }
+        }
+        on("beforeInit", (() => {
+            swiper.controller.control = swiper.params.controller.control;
+        }));
+        on("update", (() => {
+            removeSpline();
+        }));
+        on("resize", (() => {
+            removeSpline();
+        }));
+        on("observerUpdate", (() => {
+            removeSpline();
+        }));
+        on("setTranslate", ((_s, translate, byController) => {
+            if (!swiper.controller.control) return;
+            swiper.controller.setTranslate(translate, byController);
+        }));
+        on("setTransition", ((_s, duration, byController) => {
+            if (!swiper.controller.control) return;
+            swiper.controller.setTransition(duration, byController);
+        }));
+        Object.assign(swiper.controller, {
+            setTranslate,
+            setTransition
+        });
+    }
+    function Thumb({swiper, extendParams, on}) {
+        extendParams({
+            thumbs: {
+                swiper: null,
+                multipleActiveThumbs: true,
+                autoScrollOffset: 0,
+                slideThumbActiveClass: "swiper-slide-thumb-active",
+                thumbsContainerClass: "swiper-thumbs"
+            }
+        });
+        let initialized = false;
+        let swiperCreated = false;
+        swiper.thumbs = {
+            swiper: null
+        };
+        function onThumbClick() {
+            const thumbsSwiper = swiper.thumbs.swiper;
+            if (!thumbsSwiper || thumbsSwiper.destroyed) return;
+            const clickedIndex = thumbsSwiper.clickedIndex;
+            const clickedSlide = thumbsSwiper.clickedSlide;
+            if (clickedSlide && dom(clickedSlide).hasClass(swiper.params.thumbs.slideThumbActiveClass)) return;
+            if ("undefined" === typeof clickedIndex || null === clickedIndex) return;
+            let slideToIndex;
+            if (thumbsSwiper.params.loop) slideToIndex = parseInt(dom(thumbsSwiper.clickedSlide).attr("data-swiper-slide-index"), 10); else slideToIndex = clickedIndex;
+            if (swiper.params.loop) {
+                let currentIndex = swiper.activeIndex;
+                if (swiper.slides.eq(currentIndex).hasClass(swiper.params.slideDuplicateClass)) {
+                    swiper.loopFix();
+                    swiper._clientLeft = swiper.$wrapperEl[0].clientLeft;
+                    currentIndex = swiper.activeIndex;
+                }
+                const prevIndex = swiper.slides.eq(currentIndex).prevAll(`[data-swiper-slide-index="${slideToIndex}"]`).eq(0).index();
+                const nextIndex = swiper.slides.eq(currentIndex).nextAll(`[data-swiper-slide-index="${slideToIndex}"]`).eq(0).index();
+                if ("undefined" === typeof prevIndex) slideToIndex = nextIndex; else if ("undefined" === typeof nextIndex) slideToIndex = prevIndex; else if (nextIndex - currentIndex < currentIndex - prevIndex) slideToIndex = nextIndex; else slideToIndex = prevIndex;
+            }
+            swiper.slideTo(slideToIndex);
+        }
+        function init() {
+            const {thumbs: thumbsParams} = swiper.params;
+            if (initialized) return false;
+            initialized = true;
+            const SwiperClass = swiper.constructor;
+            if (thumbsParams.swiper instanceof SwiperClass) {
+                swiper.thumbs.swiper = thumbsParams.swiper;
+                Object.assign(swiper.thumbs.swiper.originalParams, {
+                    watchSlidesProgress: true,
+                    slideToClickedSlide: false
+                });
+                Object.assign(swiper.thumbs.swiper.params, {
+                    watchSlidesProgress: true,
+                    slideToClickedSlide: false
+                });
+            } else if (utils_isObject(thumbsParams.swiper)) {
+                const thumbsSwiperParams = Object.assign({}, thumbsParams.swiper);
+                Object.assign(thumbsSwiperParams, {
+                    watchSlidesProgress: true,
+                    slideToClickedSlide: false
+                });
+                swiper.thumbs.swiper = new SwiperClass(thumbsSwiperParams);
+                swiperCreated = true;
+            }
+            swiper.thumbs.swiper.$el.addClass(swiper.params.thumbs.thumbsContainerClass);
+            swiper.thumbs.swiper.on("tap", onThumbClick);
+            return true;
+        }
+        function update(initial) {
+            const thumbsSwiper = swiper.thumbs.swiper;
+            if (!thumbsSwiper || thumbsSwiper.destroyed) return;
+            const slidesPerView = "auto" === thumbsSwiper.params.slidesPerView ? thumbsSwiper.slidesPerViewDynamic() : thumbsSwiper.params.slidesPerView;
+            let thumbsToActivate = 1;
+            const thumbActiveClass = swiper.params.thumbs.slideThumbActiveClass;
+            if (swiper.params.slidesPerView > 1 && !swiper.params.centeredSlides) thumbsToActivate = swiper.params.slidesPerView;
+            if (!swiper.params.thumbs.multipleActiveThumbs) thumbsToActivate = 1;
+            thumbsToActivate = Math.floor(thumbsToActivate);
+            thumbsSwiper.slides.removeClass(thumbActiveClass);
+            if (thumbsSwiper.params.loop || thumbsSwiper.params.virtual && thumbsSwiper.params.virtual.enabled) for (let i = 0; i < thumbsToActivate; i += 1) thumbsSwiper.$wrapperEl.children(`[data-swiper-slide-index="${swiper.realIndex + i}"]`).addClass(thumbActiveClass); else for (let i = 0; i < thumbsToActivate; i += 1) thumbsSwiper.slides.eq(swiper.realIndex + i).addClass(thumbActiveClass);
+            const autoScrollOffset = swiper.params.thumbs.autoScrollOffset;
+            const useOffset = autoScrollOffset && !thumbsSwiper.params.loop;
+            if (swiper.realIndex !== thumbsSwiper.realIndex || useOffset) {
+                let currentThumbsIndex = thumbsSwiper.activeIndex;
+                let newThumbsIndex;
+                let direction;
+                if (thumbsSwiper.params.loop) {
+                    if (thumbsSwiper.slides.eq(currentThumbsIndex).hasClass(thumbsSwiper.params.slideDuplicateClass)) {
+                        thumbsSwiper.loopFix();
+                        thumbsSwiper._clientLeft = thumbsSwiper.$wrapperEl[0].clientLeft;
+                        currentThumbsIndex = thumbsSwiper.activeIndex;
+                    }
+                    const prevThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).prevAll(`[data-swiper-slide-index="${swiper.realIndex}"]`).eq(0).index();
+                    const nextThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).nextAll(`[data-swiper-slide-index="${swiper.realIndex}"]`).eq(0).index();
+                    if ("undefined" === typeof prevThumbsIndex) newThumbsIndex = nextThumbsIndex; else if ("undefined" === typeof nextThumbsIndex) newThumbsIndex = prevThumbsIndex; else if (nextThumbsIndex - currentThumbsIndex === currentThumbsIndex - prevThumbsIndex) newThumbsIndex = thumbsSwiper.params.slidesPerGroup > 1 ? nextThumbsIndex : currentThumbsIndex; else if (nextThumbsIndex - currentThumbsIndex < currentThumbsIndex - prevThumbsIndex) newThumbsIndex = nextThumbsIndex; else newThumbsIndex = prevThumbsIndex;
+                    direction = swiper.activeIndex > swiper.previousIndex ? "next" : "prev";
+                } else {
+                    newThumbsIndex = swiper.realIndex;
+                    direction = newThumbsIndex > swiper.previousIndex ? "next" : "prev";
+                }
+                if (useOffset) newThumbsIndex += "next" === direction ? autoScrollOffset : -1 * autoScrollOffset;
+                if (thumbsSwiper.visibleSlidesIndexes && thumbsSwiper.visibleSlidesIndexes.indexOf(newThumbsIndex) < 0) {
+                    if (thumbsSwiper.params.centeredSlides) if (newThumbsIndex > currentThumbsIndex) newThumbsIndex = newThumbsIndex - Math.floor(slidesPerView / 2) + 1; else newThumbsIndex = newThumbsIndex + Math.floor(slidesPerView / 2) - 1; else if (newThumbsIndex > currentThumbsIndex && 1 === thumbsSwiper.params.slidesPerGroup) ;
+                    thumbsSwiper.slideTo(newThumbsIndex, initial ? 0 : void 0);
+                }
+            }
+        }
+        on("beforeInit", (() => {
+            const {thumbs} = swiper.params;
+            if (!thumbs || !thumbs.swiper) return;
+            init();
+            update(true);
+        }));
+        on("slideChange update resize observerUpdate", (() => {
+            update();
+        }));
+        on("setTransition", ((_s, duration) => {
+            const thumbsSwiper = swiper.thumbs.swiper;
+            if (!thumbsSwiper || thumbsSwiper.destroyed) return;
+            thumbsSwiper.setTransition(duration);
+        }));
+        on("beforeDestroy", (() => {
+            const thumbsSwiper = swiper.thumbs.swiper;
+            if (!thumbsSwiper || thumbsSwiper.destroyed) return;
+            if (swiperCreated) thumbsSwiper.destroy();
+        }));
+        Object.assign(swiper.thumbs, {
+            init,
+            update
+        });
+    }
     function initSliders() {
         if (document.querySelector(".main-slider__slider")) new core(".main-slider__slider", {
             modules: [ Navigation ],
@@ -3867,6 +4134,49 @@
             },
             on: {}
         });
+        if (document.querySelector(".testimonials__slider")) new core(".testimonials__slider", {
+            modules: [ Navigation ],
+            observer: true,
+            observeParents: true,
+            slidesPerView: 1,
+            spaceBetween: 0,
+            autoHeight: true,
+            speed: 800,
+            loop: true,
+            navigation: {
+                prevEl: ".testimonials__arrow.testimonials__swiper-button-prev",
+                nextEl: ".testimonials__arrow.testimonials__swiper-button-next"
+            },
+            on: {}
+        });
+        if (document.querySelector(".body-product__images")) {
+            let thumbsSwiper = new core(".images-preview__slider", {
+                modules: [ Navigation, Thumb, Controller ],
+                observer: true,
+                observeParents: true,
+                slidesPerView: 4,
+                spaceBetween: 24,
+                autoHeight: false,
+                speed: 800,
+                loop: false,
+                direction: "vertical",
+                on: {}
+            });
+            new core(".images-product__slider", {
+                modules: [ Navigation, Thumb, Controller ],
+                observer: true,
+                observeParents: true,
+                slidesPerView: 1,
+                spaceBetween: 0,
+                autoHeight: false,
+                speed: 800,
+                loop: true,
+                thumbs: {
+                    swiper: thumbsSwiper
+                },
+                on: {}
+            });
+        }
     }
     window.addEventListener("load", (function(e) {
         initSliders();
@@ -5790,32 +6100,45 @@ PERFORMANCE OF THIS SOFTWARE.
         categoriesElements = document.querySelectorAll(".collections__column");
         if (collectionsElement) loadProducts();
     }
-    async function loadProducts() {
+    async function loadProducts(start = 0, limit = 3) {
         const productsJson = "files/json/collections.json";
         const response = await fetch(productsJson, {
             method: "GET"
         });
         if (response.ok) {
             const results = await response.json();
-            setProducts(results);
+            setProducts(results, start, limit);
         }
     }
-    function setProducts(products) {
+    function setProducts(products, start, limit) {
+        console.log(start);
         const productsArray = products.collections;
         let productTemplate;
-        productsArray.forEach((product => {
-            productTemplate = `\n            <article id="pid-${product.id}" class="collections__item item-collections">\n                <a href="${product.url}" class="item-collections__image"><img src="${product.image}"\n                        alt="Image">\n                </a>\n                <div class="item-collections__body">\n                    <div class="item-collections__title">\n                        %OLDPRICE%\n                        <a href="${product.url}" class="item-collections__link-title">${product.title}</a>\n                    </div>\n                    <div class="item-collections__new-price">Rp ${product.price.newvalue}</div>\n                </div>\n            </article>\n        `;
-            if (product.price.value) {
-                const oldPrice = `\n                        <div class="item-collections__price">Rp ${product.price.value}</div>\n            `;
-                productTemplate = productTemplate.replace("%OLDPRICE%", oldPrice);
-            } else productTemplate = productTemplate.replace("%OLDPRICE%", "");
-            const category = product.category;
-            let collectionsItems;
-            if (1 === category) collectionsItems = document.querySelector("#cat-01");
-            if (2 === category) collectionsItems = document.querySelector("#cat-02");
-            if (3 === category) collectionsItems = document.querySelector("#cat-03");
-            collectionsItems.insertAdjacentHTML("beforeend", productTemplate);
+        productsArray.forEach(((product, index) => {
+            if (index >= start && index < start + limit) {
+                productTemplate = `\n            <article id="pid-${product.id}" class="collections__item item-collections">\n                <a href="${product.url}" class="item-collections__image"><img src="${product.image}"\n                        alt="Image">\n                </a>\n                <div class="item-collections__body">\n                    <div class="item-collections__title">\n                    <a href="${product.url}" class="item-collections__link-title">${product.title}</a>\n                        %OLDPRICE%\n                    </div>\n                    <div class="item-collections__new-price">Rp ${product.price.newvalue}</div>\n                </div>\n            </article>\n        `;
+                if (product.price.value) {
+                    const oldPrice = `\n                        <div class="item-collections__price">Rp ${product.price.value}</div>\n            `;
+                    productTemplate = productTemplate.replace("%OLDPRICE%", oldPrice);
+                } else productTemplate = productTemplate.replace("%OLDPRICE%", "");
+                const category = product.category;
+                let collectionsItems;
+                if (1 === category) collectionsItems = document.querySelector("#cat-01");
+                if (2 === category) collectionsItems = document.querySelector("#cat-02");
+                if (3 === category) collectionsItems = document.querySelector("#cat-03");
+                collectionsItems.insertAdjacentHTML("beforeend", productTemplate);
+            }
         }));
+    }
+    document.addEventListener("click", documentActions);
+    function documentActions(e) {
+        const targetElement = e.target;
+        if (targetElement.closest(".collections__button")) {
+            const productsQuantity = document.querySelectorAll(".collections__item").length;
+            console.log(productsQuantity);
+            loadProducts(productsQuantity);
+            e.preventDefault();
+        }
     }
     window["FLS"] = true;
     isWebp();
@@ -5827,4 +6150,5 @@ PERFORMANCE OF THIS SOFTWARE.
         autoHeight: false
     });
     formSubmit();
+    formQuantity();
 })();
