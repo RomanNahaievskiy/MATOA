@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230210225754">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230306230905">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +31,7 @@
 				<div class="header__actions actions-header">
 					<a data-popup="#search" href="" class="actions-header__search _icon-search"></a>
 					<a data-da=".menu__body, 400" href="" class="actions-header__login _icon-user">Log in</a>
-					<a href="" class="actions-header__cart _icon-cart"></a>
+					<a href="" data-popup="#cart" class="actions-header__cart _icon-cart"><span>0</span></a>
 					<button type="button" class="icon-menu"><span></span></button>
 
 				</div>
@@ -415,7 +415,7 @@
 	<div id="search" aria-hidden="true" class="popup popup__search">
 		<div class="popup__wrapper">
 			<div class="popup__content">
-				<button data-close type="button" class="popup__close"></button>
+				<button data-close type="button" class="popup__close popup__close_search"></button>
 				<div class="popup__text">
 					<form action="#" method="get" class="search-form">
 						<div class="search-form__title title title_small">Search</div>
@@ -425,13 +425,82 @@
 							</div>
 							<button type="submit" class="button _icon-search"></button>
 						</div>
+					</form>
 				</div>
-				</form>
 			</div>
 		</div>
 	</div>
+
+	<div id="cart" aria-hidden="true" class="popup popup_cart">
+		<div class="popup__wrapper">
+			<div class="popup__content popup__content_cart">
+				<button data-close type="button" class="popup__close popup__close_cart"></button>
+				<div class="popup__text">
+					<form action="#" class="cart">
+						<div class="cart__items">
+							<div class="cart__item item-cart">
+								<a href="" class="item-cart__image">
+									<picture><source srcset="img/product/images/01.webp" type="image/webp"><img src="img/product/images/01.png" alt="Image"></picture>
+								</a>
+								<div class="item-cart__body">
+									<div class="item-cart__info">
+										<h4 class="item-cart__title cart-title">Way Kambas Mini Ebony</h4>
+										<p class="item-cart__old-price old-price old-price_cart"><span>Rp 1.280.000</span>
+										</p>
+										<p class="item-cart__price price price_cart ">Rp 1.024.000</p>
+										<div class="item-cart__options options-item-cart">
+											<div class="options-item-cart__label">Custom Engrave</div>
+											<div class="options-item-cart__value">“Happy | Birthday | from”</div>
+										</div>
+									</div>
+									<div class="item-cart__actions">
+										<div class="item-cart__packing">
+											<label for="" class="item-cart__label">Select
+												Packaging</label>
+											<select name="form[]" data-class-modif="cart">
+												<option value="1" selected>Wooden Packaging (Rp 50.000)</option>
+												<option value="2">Wooden Packaging (Rp 50.000)</option>
+												<option value="3">Wooden Packaging (Rp 40.000)</option>
+												<option value="4">Wooden Packaging (Rp 30.000)</option>
+											</select>
+										</div>
+										<div class="item-cart__management">
+											<div data-quantity class="item-cart__quantity quantity ">
+												<button data-quantity-minus type="button" class="quantity__button quantity__button_minus"></button>
+												<div class="quantity__input">
+													<input data-quantity-value autocomplete="off" type="text" name="form[]" value="1">
+												</div>
+												<button data-quantity-plus type="button" class="quantity__button quantity__button_plus"></button>
+											</div>
+											<div class="item-cart__total-price price price_cart">Rp 2.048.000</div>
+											<button class="item-cart__delete border-button _icon-delete" type="button"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="cart__footer">
+							<div class="cart__promo promo-cart">
+								<label for="p-1" class="promo-cart__label">Kode Promo</label>
+								<input id="p-1" autocomplete="off" type="text" name="form[]" data-error="Помилка" placeholder="INDONESIA" class="promo-cart__input">
+								<div class="promo-cart__info">35% OFF</div>
+							</div>
+							<div class="cart__total total-cart">
+								<div class="total-cart__label">Subtotal</div>
+								<div class="total-cart__value">
+									<div class="total-cart__old-price old-price old-price_cart"><span>Rp 3.312.000</span>
+									</div>
+									<div class="total-cart__price price price_cart">Rp 2.152.000</div>
+								</div>
+							</div>
+							<button type="submit" class="cart__button button">Checkout</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
-	<script src="js/app.min.js?_v=20230210225754"></script>
+	<script src="js/app.min.js?_v=20230306230905"></script>
 </body>
 
 </html>

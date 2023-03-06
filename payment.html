@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Payment</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<!-- <style>body{opacity: 0;}</style> -->
+	<link rel="stylesheet" href="css/style.min.css?_v=20230306230905">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header" data-lp>
+			<div class="header__container">
+
+				<a href="" class="header__logo"><img src="img/logo.svg" alt="matoa"></a>
+				<div class="header__menu menu">
+					<nav class="menu__body">
+						<ul class="menu__list">
+							<li class="menu__item"><a href="" class="menu__link">Watches</a></li>
+							<li class="menu__item"><a href="" class="menu__link">Eyewear</a></li>
+							<li class="menu__item"><a href="" class="menu__link">Accessories</a></li>
+							<li class="menu__item"><a href="" class="menu__link">News</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="header__actions actions-header">
+					<a data-popup="#search" href="" class="actions-header__search _icon-search"></a>
+					<a data-da=".menu__body, 400" href="" class="actions-header__login _icon-user">Log in</a>
+					<a href="" data-popup="#cart" class="actions-header__cart _icon-cart"><span>0</span></a>
+					<button type="button" class="icon-menu"><span></span></button>
+
+				</div>
+
+			</div>
+		</header>
+		<main class="payment">
+			<div class="payment__container">
+				<div class="infographic">
+					<div class="infographic__stage-one">
+						<div class="infographic__img _icon-checkout"></div>
+						<div class="infographic__text"><span>1.</span> Checkout</div>
+					</div>
+					<div class="infographic__div"></div>
+					<div class="infographic__stage-two">
+						<div class="infographic__img _icon-payment infographic__img_active"></div>
+						<div class="infographic__text infographic__text_active"><span>2.</span> Payment</div>
+					</div>
+					<div class="infographic__div"></div>
+					<div class="infographic__stage-three">
+						<div class="infographic__img _icon-confirmation"></div>
+						<div class="infographic__text"><span>3.</span> Confirmation</div>
+					</div>
+				</div>
+				<div class="payment__columns">
+					<div class="payment__column">
+						<div class="detail-order">
+							<h4 class="detail-order__title">Detail Order</h4>
+							<div class="detail-order__info">
+								<div class="detail-order__labels">
+									<div class="label-order">Subtotal</div>
+									<div class="label-order">Shipping Cost</div>
+									<div class="label-order">Promo Code</div>
+									<div class="label-order">Packaging</div>
+								</div>
+								<div class="detail-order__values">
+									<div class="value-order">Rp 2.152.000</div>
+									<div class="value-order">Rp 500.000</div>
+									<div class="value-order">INDONESIA</div>
+									<div class="value-order">Rp 50.000</div>
+								</div>
+							</div>
+							<div class="detail-order__grand-total">
+								<div class="detail-order__label">Grand Total</div>
+								<div class="detail-order__price price price_big">Rp 2.702.000</div>
+							</div>
+						</div>
+						<div class="payment-detail">
+							<h4 class="payment-detail__title">Payment Detail <span>11:55:55</span></h4>
+
+							<div class="payment-detail__text">Please make a payment according with the limit time
+								specified, starting from now</div>
+						</div>
+					</div>
+					<div class="payment__column">
+						<div class="order-detail">
+							<h4 class="order-detail__title">Order Detail</h4>
+							<div class="order-detail__info">
+								<div class="order-detail__row">
+									<div class="order-detail__label">Order Number</div>
+									<div class="order-detail__text">
+										<p class="value">MTAWEB-3A86D4DB <span class="accent">COPY</span></p>
+										<p class="description">Always remember Order Number for easy tracking</p>
+									</div>
+								</div>
+								<div class="order-detail__row">
+									<div class="order-detail__label">Purchase Date</div>
+									<div class="order-detail__text">
+										<p class="value">2019-11-07 14:01:48</p>
+										<!-- <p class="description"></p> -->
+									</div>
+								</div>
+								<div class="order-detail__row">
+									<div class="order-detail__label">Items</div>
+									<div class="order-detail__text">
+										<p class="value">Way Kambas Mini Ebony <span>2 x IDR 1.024.000</span></p>
+										<p class="value">Sikka (Ebony & Mapple)<span>1 x IDR 1.264.000</span></p>
+									</div>
+								</div>
+								<div class="order-detail__row">
+									<div class="order-detail__label">Name</div>
+									<div class="order-detail__text">
+										<p class="value">Rasyidin Arsyad Nasution</p>
+										<!-- <p class="description"></p> -->
+									</div>
+								</div>
+								<div class="order-detail__row">
+									<div class="order-detail__label">Phone</div>
+									<div class="order-detail__text">
+										<p class="value">+18911188899</p>
+										<!-- <p class="description"></p> -->
+									</div>
+								</div>
+								<div class="order-detail__row">
+									<div class="order-detail__label">Email</div>
+									<div class="order-detail__text">
+										<p class="value">rasyid.arsyad@gmail.com</p>
+										<!-- <p class="description"></p> -->
+									</div>
+								</div>
+								<div class="order-detail__row">
+									<div class="order-detail__label">Shipping Address</div>
+									<div class="order-detail__text">
+										<p class="value">18 Richardson Drive
+											Fountain Valley, CA 92708</p>
+										<!-- <p class="description"></p> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="payment__row">
+					<form action="#" class="payment-method">
+						<div class="payment-method__body">
+							<h4 class="payment-method__title">Payment Method</h4>
+							<ul class="payment-method__items">
+								<li class="payment-method__item">
+									<input id="p-1" type="radio" name="pay-m" value="bni">
+									<label for="p-1"><span>BNI Cicilan <span>0%</span></span>
+										<div class="payment-method__image"><picture><source srcset="img/payment/01.webp" type="image/webp"><img src="img/payment/01.png" alt="BNI"></picture>
+										</div>
+									</label>
+								</li>
+								<li class="payment-method__item">
+									<input id="p-2" type="radio" name="pay-m" value="Mandiri Cicilan">
+									<label for="p-2"><span>Mandiri Cicilan <span>0%</span></span>
+										<div class="payment-method__image"><picture><source srcset="img/payment/02.webp" type="image/webp"><img src="img/payment/02.png" alt="Mandiri Cicilan"></picture></div>
+									</label>
+								</li>
+								<li class="payment-method__item">
+									<input id="p-3" type="radio" name="pay-m" value="Bank Transfer">
+									<label for="p-3"><span>Bank Transfer <span>0%</span></span>
+										<div class="payment-method__image"><picture><source srcset="img/payment/03.webp" type="image/webp"><img src="img/payment/03.png" alt="Bank Transfer"></picture></div>
+
+									</label>
+								</li>
+								<li class="payment-method__item">
+									<input id="p-4" type="radio" name="pay-m" value="Credit Card">
+									<label for="p-4"><span>Credit Card <span>0%</span></span>
+										<div class="payment-method__image"><picture><source srcset="img/payment/04.webp" type="image/webp"><img src="img/payment/04.png" alt="Credit Card"></picture>
+											<picture><source srcset="img/payment/05.webp" type="image/webp"><img src="img/payment/05.png" alt="Credit Card"></picture>
+										</div>
+
+									</label>
+								</li>
+								<li class="payment-method__item">
+									<input id="p-5" type="radio" name="pay-m" value="Credit Card Cicilan">
+									<label for="p-5"><span>Credit Card Cicilan <span>0%</span><span>(Danamon, UOB &
+												Standard
+												Chartered)</span></span>
+										<div class="payment-method__image"> <picture><source srcset="img/payment/06.webp" type="image/webp"><img src="img/payment/06.png" alt="Credit Card Cicilan"></picture>
+											<picture><source srcset="img/payment/07.webp" type="image/webp"><img src="img/payment/07.png" alt="Credit Card Cicilan"></picture>
+											<picture><source srcset="img/payment/08.webp" type="image/webp"><img src="img/payment/08.png" alt="Credit Card Cicilan"></picture>
+										</div>
+									</label>
+								</li>
+								<li class="payment-method__item">
+									<input id="p-6" type="radio" name="pay-m" value="GO-PAY">
+									<label for="p-6"><span>GO-PAY</span>
+										<div class="payment-method__image"><picture><source srcset="img/payment/09.webp" type="image/webp"><img src="img/payment/09.png" alt="go pay"></picture>
+										</div>
+									</label>
+								</li>
+								<li class="payment-method__item">
+									<input id="p-7" type="radio" name="pay-m" value="Krdivo">
+									<label for="p-7"><span>Krdivo</span>
+										<div class="payment-method__image"><picture><source srcset="img/payment/10.webp" type="image/webp"><img src="img/payment/10.png" alt="Krdivo"></picture>
+										</div>
+									</label>
+								</li>
+							</ul>
+						</div>
+						<button type="submit" class="button">Proceed Payment</button>
+					</form>
+				</div>
+			</div>
+		</main>
+		<footer data-spollers="991.98,max" class="footer">
+			<div class="footer__container">
+				<div class="footer__column">
+					<div class="footer__logo">
+						<a href="" class="footer__link"><picture><source srcset="img/footer/logo-footer.webp" type="image/webp"><img src="img/footer/logo-footer.png" alt="matoa"></picture></a>
+					</div>
+					<div class="footer__blocks">
+						<div class="footer__block">
+							<h4 class="footer__subtitle">Address</h4>
+							<div class="footer__address">
+								<p> Store & Office</p>
+								<p>Jl. Setrasari Kulon III, No. 10-12,</p>
+								<p> Sukarasa, Sukasari, Bandung,</p>
+								<p>Jawa Barat, Indonesia 40152</p>
+							</div>
+						</div>
+						<div class="footer__block">
+							<h4 class="footer__subtitle">Office Hour</h4>
+							<p>Monday - Sunday</p>
+							<p>10.00 - 18.00</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="footer__column">
+					<button type="button" data-spoller class=" footer__title title title_small _icon-arrow-select">Get in
+						touch</button>
+					<div class="footer__contacts contact-footer ">
+						<div class="contact-footer__body">
+							<div class="contact-footer__caption caption-footer">Phone</div>
+							<a class="contact-footer__value" href="tel:02220277564">022-202-77564</a>
+							<div class="contact-footer__caption caption-footer">Service Center</div>
+							<a class="contact-footer__value" href="tel:08112338899">0811-233-8899</a>
+							<div class="contact-footer__caption caption-footer">Customer Service</div>
+							<a class="contact-footer__value" href="tel:08112359988">0811-235-9988</a>
+							<div class="footer__social social">
+								<a href="#" class="social__item _icon-s-facebook"></a>
+								<a href="#" class="social__item _icon-s-instagram"></a>
+								<a href="#" class="social__item _icon-s-tweetter"></a>
+								<a href="#" class="social__item _icon-s-youtube"></a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="footer__column">
+
+					<button type="button" data-spoller class="footer__title title title_small _icon-arrow-select">Useful
+						Link</button>
+					<nav class="footer__menu menu-footer ">
+						<ul class="menu-footer__list">
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Warranty & Complaints</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Order & Shipping</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Tracking Order</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">About Us</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Repair</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Terms</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">FAQ</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="footer__column">
+					<button type="button" data-spoller class="footer__title title title_small _icon-arrow-select">Campaign</button>
+					<nav class="footer__menu menu-footer ">
+						<ul class="menu-footer__list">
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Mengenal Arti Cukup</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Tell Your Difference</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Waykambas</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Rebrand</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Gallery</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Singo</a></li>
+							<li class="menu-footer__item"><a href="" class="menu-footer__link">Rakai</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<div id="search" aria-hidden="true" class="popup popup__search">
+		<div class="popup__wrapper">
+			<div class="popup__content">
+				<button data-close type="button" class="popup__close popup__close_search"></button>
+				<div class="popup__text">
+					<form action="#" method="get" class="search-form">
+						<div class="search-form__title title title_small">Search</div>
+						<div class="search-form__body">
+							<div class="search-form__line">
+								<input data-required autocomplete="off" type="text" name="form[]" data-error="Error !" placeholder="Search" class="search-form__input input">
+							</div>
+							<button type="submit" class="button _icon-search"></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="cart" aria-hidden="true" class="popup popup_cart">
+		<div class="popup__wrapper">
+			<div class="popup__content popup__content_cart">
+				<button data-close type="button" class="popup__close popup__close_cart"></button>
+				<div class="popup__text">
+					<form action="#" class="cart">
+						<div class="cart__items">
+							<div class="cart__item item-cart">
+								<a href="" class="item-cart__image">
+									<picture><source srcset="img/product/images/01.webp" type="image/webp"><img src="img/product/images/01.png" alt="Image"></picture>
+								</a>
+								<div class="item-cart__body">
+									<div class="item-cart__info">
+										<h4 class="item-cart__title cart-title">Way Kambas Mini Ebony</h4>
+										<p class="item-cart__old-price old-price old-price_cart"><span>Rp 1.280.000</span>
+										</p>
+										<p class="item-cart__price price price_cart ">Rp 1.024.000</p>
+										<div class="item-cart__options options-item-cart">
+											<div class="options-item-cart__label">Custom Engrave</div>
+											<div class="options-item-cart__value">“Happy | Birthday | from”</div>
+										</div>
+									</div>
+									<div class="item-cart__actions">
+										<div class="item-cart__packing">
+											<label for="" class="item-cart__label">Select
+												Packaging</label>
+											<select name="form[]" data-class-modif="cart">
+												<option value="1" selected>Wooden Packaging (Rp 50.000)</option>
+												<option value="2">Wooden Packaging (Rp 50.000)</option>
+												<option value="3">Wooden Packaging (Rp 40.000)</option>
+												<option value="4">Wooden Packaging (Rp 30.000)</option>
+											</select>
+										</div>
+										<div class="item-cart__management">
+											<div data-quantity class="item-cart__quantity quantity ">
+												<button data-quantity-minus type="button" class="quantity__button quantity__button_minus"></button>
+												<div class="quantity__input">
+													<input data-quantity-value autocomplete="off" type="text" name="form[]" value="1">
+												</div>
+												<button data-quantity-plus type="button" class="quantity__button quantity__button_plus"></button>
+											</div>
+											<div class="item-cart__total-price price price_cart">Rp 2.048.000</div>
+											<button class="item-cart__delete border-button _icon-delete" type="button"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="cart__footer">
+							<div class="cart__promo promo-cart">
+								<label for="p-1" class="promo-cart__label">Kode Promo</label>
+								<input id="p-1" autocomplete="off" type="text" name="form[]" data-error="Помилка" placeholder="INDONESIA" class="promo-cart__input">
+								<div class="promo-cart__info">35% OFF</div>
+							</div>
+							<div class="cart__total total-cart">
+								<div class="total-cart__label">Subtotal</div>
+								<div class="total-cart__value">
+									<div class="total-cart__old-price old-price old-price_cart"><span>Rp 3.312.000</span>
+									</div>
+									<div class="total-cart__price price price_cart">Rp 2.152.000</div>
+								</div>
+							</div>
+							<button type="submit" class="cart__button button">Checkout</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/app.min.js?_v=20230306230905"></script>
+</body>
+
+</html>
